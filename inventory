@@ -1,0 +1,2 @@
+#client1 ansible_host=172.16.145.31 ansible_connection=ssh ansible_ssh_user=calculator_deploy ansible_ssh_pass=calculator
+client1 ansible_host=172.16.145.31 ansible_connection=ssh ansible_ssh_user=calculator ansible_ssh_pass=calculator ansible_become=true ansible_become_pass=calculator

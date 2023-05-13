@@ -1,0 +1,23 @@
+.auth-container {
+    background-image: url('../assets/loginbg.jpg');
+  
+    background-size: 100% 100%;
+  background-position: center;
+  height: 100vh;
+  }
+
+ 
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.skill-box {
+  width: calc(50% - 10px); /* Set the width of the boxes to 50% minus the margin between them */
+  margin-bottom: 20px;
+}
+
+  

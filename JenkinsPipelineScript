@@ -1,0 +1,55 @@
+pipeline {
+    agent any 
+     environment {
+			DOCKERHUB_REGISTRY = "hyndhu"
+			DOCKERHUB_CREDENTIALS = credentials('078addcc-26f8-4e60-b216-39c898622cdb')
+			
+        }
+    
+   stages {
+        
+            stage('Git Pull') {
+				steps {
+					
+					git url: 'https://github.com/Hyndu20/CareerGuide',
+					branch: 'master'
+					
+				}
+			}
+ 			stage ('Running React Tests (Jest)') {
+ 				steps {
+ 					sh '''
+ 							cd backend
+ 							npm ci
+ 							npm test
+ 					'''
+ 				}
+			}
+	
+
+
+			stage('Login to Docker Hub') {
+				steps {
+					sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+				}
+			}
+			stage('Removing Docker Images from Local') {
+				steps {
+					sh "docker rmi $DOCKERHUB_REGISTRY/frontend:latest"
+					sh "docker rmi $DOCKERHUB_REGISTRY/backend:latest"
+				}
+			}
+			stage('Ansible Deploy') {
+				steps {
+					ansiblePlaybook becomeUser: 'null',
+					disableHostKeyChecking: true,
+					colorized: true,
+					installation: 'Ansible',
+					inventory: 'inventory',
+					playbook: 'ansible-playbook.yml',
+					sudoUser: 'null'
+				}
+			
+    }
+}
+}

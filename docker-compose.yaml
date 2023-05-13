@@ -1,0 +1,31 @@
+services:
+  frontend:
+    image: hyndhu/frontend:latest
+    container_name: frontend
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    networks:
+      career:
+        ipv4_address: 172.28.2.6
+
+  backend:
+    image: hyndhu/backend:latest
+    container_name: backend
+    ports:
+      - "5000:5000"
+    networks:
+      career:
+        ipv4_address: 172.28.2.7
+    # Using Docker volume for persisting logs
+    # ./backend/logs refers to the path /home/backend/logs on the host machine
+    # and we're linking it to logs folder on the container machine where Morgan logger logs its output
+    # volumes:
+    #   - ./backend/logs:/usr/src/app/logs/
+  
+networks:
+  career:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.28.2.0/24
