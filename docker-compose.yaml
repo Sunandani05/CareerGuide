@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: hyndhu/frontend:latest
+    image: sunandani/frontend:latest
     container_name: frontend
     stdin_open: true
     ports:
@@ -10,7 +10,7 @@ services:
         ipv4_address: 172.28.2.6
 
   backend:
-    image: hyndhu/backend:latest
+    image: sunandani/backend:latest
     container_name: backend
     ports:
       - "5000:5000"
